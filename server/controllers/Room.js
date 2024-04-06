@@ -118,7 +118,7 @@ exports.joinRoom = async (req, res) => {
     // Add the user to participants list
     room.users.push(userId);
     await room.save();
-    await room.populate('users').exec();
+    await room.populate('users');
 
     res.status(200).json({ 
       success: true, 

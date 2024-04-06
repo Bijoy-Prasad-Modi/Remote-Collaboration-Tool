@@ -32,7 +32,7 @@ const Login = () => {
 
             if (response.data.success === true) {
                 // console.log(response.data);
-                navigate(`/create-room`);
+                navigate(`/create-room/${response.data.user._id}`);
             }
         } catch (error) {
             console.log(error);
