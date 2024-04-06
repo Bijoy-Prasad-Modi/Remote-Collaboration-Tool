@@ -4,11 +4,17 @@ const cors = require('cors');
 const dbConnect = require('./config/db');
 const roomRoutes = require('./routes/RoomRoutes');
 const userRoutes = require('./routes/UserRoutes');
+const taskBoard = require('./routes/TaskBoard');
 require('dotenv').config();
 
 const app = express();
 
-app.use(cors())
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -16,6 +22,7 @@ dbConnect();
 
 app.use('/api/v1/rooms', roomRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/taskBoard', taskBoard);
 
 const port = process.env.PORT || 5000;
 
