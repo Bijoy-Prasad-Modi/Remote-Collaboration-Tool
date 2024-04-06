@@ -26,8 +26,8 @@ const Login = () => {
 
         try {
             const response = await axios.post(`${import.meta.env.VITE_SERVER_URI}/api/v1/users/login`, {
-                email: await email.toString(),
-                password: await password.toString(),
+                email: userData.email.toString(),
+                password: userData.password.toString(),
             });
 
             if (response.data.success === true) {
