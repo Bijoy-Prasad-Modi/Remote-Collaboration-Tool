@@ -41,7 +41,7 @@ const FillOTP = () => {
             }
         } catch (error) {
             console.log(error);
-            navigate(`/sign-up`);
+            navigate(`/signup`);
         }
     }
 

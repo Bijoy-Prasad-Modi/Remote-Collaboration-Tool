@@ -27,7 +27,7 @@ const SignUp = () => {
         console.log(userData);
         try {
             const response = await axios.post(`${import.meta.env.VITE_SERVER_URI}/api/v1/users/sendotp`, {
-                email: await email.toString()
+                email: userData.email.toString()
             });
 
             if (response.data.success === true) {
