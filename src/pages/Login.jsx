@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../assets/styles/pages/Login.css";
 
+import axios from "axios";
+
 const Login = () => {
     const [userData, setUserData] = useState({
         email: "",
@@ -15,10 +17,25 @@ const Login = () => {
         );
     }
 
-    function handleLoginFormSubmit(event) {
+    async function handleLoginFormSubmit(event) {
         event.preventDefault();
         console.log(userData);
 
+
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_URI}/api/v1/users/login`, {
+                email: await email.toString(),
+                password: await password.toString(),
+            });
+
+            if (response.data.success === true) {
+                // console.log(response.data);
+                navigate(`/dashboard`);
+            }
+        } catch (error) {
+            console.log(error);
+            navigate(`/login`);
+        }
     }
 
     return <>

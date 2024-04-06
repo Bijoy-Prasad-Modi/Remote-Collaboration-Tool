@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
-        <Route path='/fill-otp' element={<FillOTP />} />
+        <Route path='/fill-otp/:name/:email/:password' element={<FillOTP />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
     </>

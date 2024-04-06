@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 
 import "../assets/styles/pages/FillOTP.css";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
 
 const FillOTP = () => {
+    const navigate = useNavigate();
+    
+    const { name, email, password } = useParams();
+
     const [otp, setOtp] = useState("");
 
     function handleChange(event) {
@@ -13,10 +21,28 @@ const FillOTP = () => {
         );
     }
 
-    function handleOTPFormSubmit(event) {
+    async function handleOTPFormSubmit(event) {
         event.preventDefault();
-        console.log(userData);
+        console.log(name);
+        console.log(email);
+        console.log(password);
+        console.log(otp);
 
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_URI}/api/v1/users/signup`, {
+                username: name,
+                email: email,
+                password: password,
+                otp: otp,
+            });
+
+            if (response.data.success === true) {
+                navigate(`/login`);
+            }
+        } catch (error) {
+            console.log(error);
+            navigate(`/sign-up`);
+        }
     }
 
 
