@@ -1,4 +1,5 @@
 const Room = require('../models/roomSchema');
+const TaskManageBoard = require('../models/TaskManageBoard');
 
 exports.createRoom = async (req, res) => {
   try {
@@ -27,6 +28,14 @@ exports.createRoom = async (req, res) => {
     });
 
     await room.save();
+
+    // Create a new task manage board for the room
+    const taskManageBoard = new TaskManageBoard({
+      roomCode: room.code,
+      columns: []
+    });
+
+    await taskManageBoard.save();
 
     res.status(201).json({ 
       message: 'Room created successfully',
@@ -173,6 +182,35 @@ exports.leaveRoom = async (req, res) => {
     res.status(500).json({ 
       success: false, 
       message: 'Failed to leave room', 
+      error: error.message 
+    });
+  }
+}
+
+// get room by entering the room id
+exports.getRoomById = async (req, res) => {
+  try {
+    const { roomId } = req.body;
+
+    const room = await Room.findById(roomId).populate('admin').populate('users').exec();
+
+    if (!room) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Room not found' 
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      room: room
+    });
+
+  }
+  catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to retrieve room', 
       error: error.message 
     });
   }
