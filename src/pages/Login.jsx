@@ -15,7 +15,7 @@ const Login = () => {
         );
     }
 
-    function handleLoginFormSubmit() {
+    function handleLoginFormSubmit(event) {
         event.preventDefault();
         console.log(userData);
 

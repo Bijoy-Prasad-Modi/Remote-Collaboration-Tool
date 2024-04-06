@@ -13,7 +13,7 @@ const FillOTP = () => {
         );
     }
 
-    function handleOTPFormSubmit() {
+    function handleOTPFormSubmit(event) {
         event.preventDefault();
         console.log(userData);
 

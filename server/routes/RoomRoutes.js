@@ -3,21 +3,21 @@ const router = express.Router();
 const roomController = require('../controllers/Room');
 
 // Route to create a new room
-router.post('/rooms/create', roomController.createRoom);
+router.post('/create', roomController.createRoom);
 
 // Route to update a room
-router.post('/rooms/update', roomController.updateRoom);
+router.post('/update', roomController.updateRoom);
 
 // Route to join a room
-router.post('/rooms/join', roomController.joinRoom);
+router.post('/join', roomController.joinRoom);
 
 // Route to leave a room
-router.post('/rooms/leave', roomController.leaveRoom);
+router.post('/leave', roomController.leaveRoom);
 
 // Route to get all rooms created by a user
-router.post('/rooms/getRoomsCreatedByUser', roomController.getRoomsCreatedByUser);
+router.post('/getRoomsCreatedByUser', roomController.getRoomsCreatedByUser);
 
 // Route to get all rooms joined by a user
-router.post('/rooms/getRoomsJoinedByUser', roomController.getRoomsJoinedByUser);
+router.post('/getRoomsJoinedByUser', roomController.getRoomsJoinedByUser);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../assets/styles/pages/SignUp.css";
 
-const Login = () => {
+const SignUp = () => {
     const [userData, setUserData] = useState({
         name: "",
         email: "",
@@ -16,7 +16,7 @@ const Login = () => {
         );
     }
 
-    function handleSignUpFormSubmit() {
+    function handleSignUpFormSubmit(event) {
         event.preventDefault();
         console.log(userData);
 
@@ -59,4 +59,4 @@ const Login = () => {
     </>;
 };
 
-export default Login;
+export default SignUp;

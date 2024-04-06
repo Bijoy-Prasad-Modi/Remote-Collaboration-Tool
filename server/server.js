@@ -14,8 +14,8 @@ app.use(cookieParser());
 
 dbConnect();
 
-app.use('/api/v1', roomRoutes);
-app.use('/api/v1', userRoutes);
+app.use('/api/v1/rooms', roomRoutes);
+app.use('/api/v1/users', userRoutes);
 
 const port = process.env.PORT || 5000;
 
