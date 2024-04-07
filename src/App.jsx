@@ -17,7 +17,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/fill-otp/:name/:email/:password' element={<FillOTP />} />
-        <Route path='/dashboard/:roomID' element={<Dashboard />} />
+        <Route path='/dashboard/:roomID/:userID' element={<Dashboard />} />
         <Route path='/create-room/:userID' element={<Createroom />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>

@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdLogout } from 'react-icons/md'
 import Modal from 'react-modal';
+
+import axios from "axios";
+
 
 const customStyles = {
     content: {
@@ -14,17 +17,58 @@ const customStyles = {
     },
 };
 
-function Navbar() {
-    const user = {
+function Navbar(props) {
+    const [user, setUser] = useState({
         name: 'Anonymous',
         email: "abc@example.com",
         role: 1,
-    };
+    });
 
-    const room = {
+    const [room, setRoom] = useState({
         name: "Web Developers",
         code: "3DF6A23",
-    };
+    });
+
+    async function getRoom() {
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_URI}/api/v1/rooms/get`, {
+                roomId: props.roomID,
+            });
+
+            if (response.data.success === true) {
+                // console.log(response.data);
+                setRoom(response.data.room);
+            }
+        } catch (error) {
+            console.log(error);
+            setRoom({
+                name: "Web Developers",
+                code: "3DF6A23",
+            });
+        }
+    }
+
+
+    async function getUser() {
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_URI}/api/v1/users/getUserById`, {
+                userId: props.userID,
+            });
+
+            if (response.data.success === true) {
+                // console.log(response.data);
+                setUser(response.data.user);
+            }
+        } catch (error) {
+            console.log(error);
+            setUser({
+                name: 'Anonymous',
+                email: "abc@example.com",
+                role: 1,
+            });
+        }
+    }
+
 
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -40,6 +84,12 @@ function Navbar() {
     function closeModal() {
         setIsOpen(false);
     }
+
+
+    useEffect(() => {
+        getRoom();
+        getUser();
+    }, [props.userID, props.roomID]);
 
 
     return (
@@ -58,14 +108,18 @@ function Navbar() {
                 </div>
             </div>
 
-            <div className='flex flex-col items-center text-xl text-white'>
-                <div className="text-2xl">
-                    {room.name}
-                </div>
-                <div className="text-md">
-                    Code: {room.code}
-                </div>
-            </div>
+            {room && (
+                <>
+                    <div className='flex flex-col items-center text-xl text-white'>
+                        <div className="text-2xl">
+                            {room.name}
+                        </div>
+                        <div className="text-md">
+                            Code: {room.code}
+                        </div>
+                    </div>
+                </>
+            )}
 
             <div className='flex items-center gap-x-5'>
                 <button className='bg-red-300 py-1 px-4 rounded-full flex items-center' onClick={openModal}>

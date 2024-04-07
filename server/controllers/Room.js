@@ -223,7 +223,7 @@ exports.getRoomsCreatedByUser = async (req, res) => {
     const { userId } = req.body;
 
     // Find all rooms where the user is the admin
-    const rooms = await Room.find({ admin: userId }).populate('admin').exec();
+    const rooms = await Room.find({ 'admin._id': userId }).populate('admin').exec();
 
     res.status(200).json({ 
       success: true,

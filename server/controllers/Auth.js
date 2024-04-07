@@ -21,7 +21,7 @@ exports.sendOTP = async (req, res) => {
         const { email } = req.body;
 
         // check if user's email already exists in DataBase and send response
-        if(await User.findOne({ email })) {
+        if (await User.findOne({ email })) {
             return res.status(400).json({
                 success: false,
                 message: "User already exists"
@@ -71,10 +71,10 @@ exports.signUp = async (req, res) => {
 
     try {
         // fetch data from req body
-        const {username, email, password, otp } = req.body;
+        const { username, email, password, otp } = req.body;
 
         // Validate the data (check if all fields are present or not)
-        if(!username || !email || !password) {
+        if (!username || !email || !password) {
             return res.status(403).json({
                 success: false,
                 message: "All fields are required"
@@ -82,7 +82,7 @@ exports.signUp = async (req, res) => {
         }
 
         // Check if the user already exists in the DataBase
-        if(await User.findOne({ email })) {
+        if (await User.findOne({ email })) {
             return res.status(400).json({
                 success: false,
                 message: "User already exists"
@@ -95,7 +95,7 @@ exports.signUp = async (req, res) => {
         console.log(`OTP sent in request for the user ${email} is: ${otp} and recent otp in database is: ${recentOTP?.otp}`);
 
         // Check if the OTP is valid or not (incorrect otp or expired otp)
-        if(!recentOTP || recentOTP.otp !== otp) {
+        if (!recentOTP || recentOTP.otp !== otp) {
             return res.status(403).json({
                 success: false,
                 message: "Incorrect OTP"
@@ -144,7 +144,7 @@ exports.login = async (req, res) => {
         const { email, password } = req.body;
 
         // Validate the data (check if all fields are present or not)
-        if(!email || !password) {
+        if (!email || !password) {
             return res.status(403).json({
                 success: false,
                 message: "All fields are required"
@@ -153,7 +153,7 @@ exports.login = async (req, res) => {
 
         // Check if the user already exists in the DataBase
         const user = await User.findOne({ email });
-        if(!user) {
+        if (!user) {
             return res.status(401).json({
                 success: false,
                 message: "User isn't registered, please sign up"
@@ -161,11 +161,11 @@ exports.login = async (req, res) => {
         }
 
         // Generate JWT token after matching the password (if user provided correct password)
-        if(await bcrypt.compare(password, user.password)) {
+        if (await bcrypt.compare(password, user.password)) {
 
             // required options for JWT token
             const payload = {
-                id : user._id,
+                id: user._id,
                 email: user.email,
                 accountType: user.accountType,
             }
@@ -212,10 +212,10 @@ exports.changePassword = async (req, res) => {
 
     try {
         // fetch data from req body
-        const { oldPassword, newPassword} = req.body;
+        const { oldPassword, newPassword } = req.body;
 
         // Validate Password (check if all fields are present or not)
-        if(!oldPassword || !newPassword) {
+        if (!oldPassword || !newPassword) {
             return res.status(403).json({
                 success: false,
                 message: "All fields are required"
@@ -234,7 +234,7 @@ exports.changePassword = async (req, res) => {
             success: true,
             message: "Password updated successfully"
         });
-        
+
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -244,3 +244,34 @@ exports.changePassword = async (req, res) => {
     }
 }
 
+// Get User By ID
+exports.getUserById = async (req, res) => {
+    try {
+        // Fetch user ID from request parameters
+        const {userId} = req.body;
+
+        // Fetch user from the database by ID
+        const user = await User.findById(userId);
+
+        // Check if user exists
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        // Return the user
+        return res.status(200).json({
+            success: true,
+            user: user
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Error occurred while fetching user",
+            error: error.message
+        });
+    }
+}

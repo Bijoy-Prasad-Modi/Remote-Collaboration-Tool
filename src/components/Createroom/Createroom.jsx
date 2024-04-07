@@ -80,7 +80,7 @@ function Createroom() {
 
       if (response.data.room) {
         // console.log(response.data);
-        navigate(`/dashboard/${response.data.room._id}`);
+        navigate(`/dashboard/${response.data.room._id}/${userID}`);
       }
     } catch (error) {
       console.log(error);
@@ -97,7 +97,7 @@ function Createroom() {
 
       if (response.data.success === true) {
         // console.log(response.data);
-        navigate(`/dashboard/${response.data.room._id}`);
+        navigate(`/dashboard/${response.data.room._id}/${userID}`);
       }
     } catch (error) {
       console.log(error);
