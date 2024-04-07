@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp';
 import FillOTP from './pages/FillOTP';
 import Dashboard from './components/Dashboard/Dashboard';
 import Createroom from './components/Createroom/Createroom';
+import Home from './pages/Home/Home';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/fill-otp/:name/:email/:password' element={<FillOTP />} />

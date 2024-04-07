@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../assets/styles/pages/SignUp.css";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SignUp = () => {
@@ -63,6 +63,9 @@ const SignUp = () => {
 
                 <button className="my-8 p-2 bg-yellow-400">Sign Up</button>
 
+                <p className="text-blue">
+                    <Link to={"/login"} className="text-xl">Already Registered ? Login Here</Link>
+                </p>
 
                 {/* <div className="social">
                     <div className="go">

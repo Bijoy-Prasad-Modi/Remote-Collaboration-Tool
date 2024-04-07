@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../assets/styles/pages/Login.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -58,6 +58,10 @@ const Login = () => {
 
 
                 <button className="my-8 p-2 bg-cyan-400">Log In</button>
+
+                <p className="text-blue">
+                    <Link to={"/signup"} className="text-xl">Not Registered ? Sign Up Here</Link>
+                </p>
 
 
                 {/* <div className="social">
